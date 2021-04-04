@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, ScrollView, StatusBar} from 'react-native';
+import AppItem from './AppItem';
 
 export default function AppList(){
     return (
