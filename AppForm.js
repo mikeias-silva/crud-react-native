@@ -2,6 +2,7 @@ import { CommonActions } from '@react-navigation/routers';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import Database from './Database';
 
 export default function AppForm({ navigation }) {
 
