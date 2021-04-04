@@ -52,9 +52,9 @@ function AppTab() {
                     inactiveTintColor: '#c1bccc',
                     activeTintColor: '#32264d'
                 }}>
-                <Tab.Screen name="Cadastro" component={AppForm} />
+                <Tab.Screen name="AppForm" component={AppForm} />
                 <Tab.Screen
-                    name="Lista"
+                    name="AppList"
                     component={AppList}/>
 
             </Tab.Navigator>

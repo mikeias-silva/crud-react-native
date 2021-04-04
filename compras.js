@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View, ScrollView, StatusBar} from 'react-native';
 
-export default function AppList(){
+export default function AppCompras(){
     return (
         <View style={styles.container}>
-            <Text style={styles.texto}>Listagem!!</Text>
+            <Text style={styles.texto}>COMPRAS!!</Text>
             <StatusBar style='light'/>
         </View>
     );
@@ -13,7 +13,7 @@ export default function AppList(){
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: 'blue',
+        backgroundColor: 'yellow',
         alignItems: 'center',
         justifyContent: 'center',
         
@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     texto:{
         color: '#fff',
         textShadowColor: '#fff',
-        
+      
     }
 });

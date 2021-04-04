@@ -1,14 +1,55 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView, StatusBar} from 'react-native';
+import { CommonActions } from '@react-navigation/routers';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, StatusBar, TextInput, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-export default function AppForm(){
+export default function AppForm({ navigation }) {
+
+    const [descricao, setDescricao] = useState('');
+    const [quantidade, setQuantidade] = useState('');
+
+    function handleDescriptionChange(descricao) {
+        setDescricao(descricao);
+    }
+
+    function handleQuantityChange(quantidade) {
+        setQuantidade(quantidade);
+    }
+
+    async function handleButtonPress() {
+        const listItem = { id: new Date().getTime(), descricao, quantidade };
+        let savedItems = [];
+        const response = await AsyncStorage.getItem('items');
+        console.log('items:', response)
+        if (response) {
+            savedItems = JSON.parse(response);
+        }
+        savedItems.push(listItem);
+        await AsyncStorage.setItem('items', JSON.stringify(savedItems));
+
+        console.log({ id: new Date().getTime(), descricao, quantidade });
+
+        navigation.navigate('AppList', { screen: 'Lista' });
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.texto}>Form!</Text>
-            <Text style={styles.texto}>Form!</Text>
-            <Text style={styles.texto}>Form!</Text>
-            <Text style={styles.texto}>Form!</Text>
-            <StatusBar style='light'/>
+            <TextInput style={styles.input}
+                onChangeText={handleDescriptionChange}
+                placeholder="O que está faltando em casa?"
+                clearButtonMode="always" />
+            <TextInput style={styles.input}
+                onChangeText={handleQuantityChange}
+                placeholder="Digite a quantidade"
+                keyboardType={'numeric'}
+                clearButtonMode="always"
+            />
+
+            <TouchableOpacity style={styles.button}
+                onPress={handleButtonPress}>
+                <Text style={styles.buttonText}>Salvar</Text>
+            </TouchableOpacity>
+            <StatusBar style='light' />
         </View>
     );
 }
@@ -20,7 +61,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    texto:{
+    texto: {
         color: '#fff'
     }
 });
