@@ -1,22 +1,56 @@
 import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import Database from './database.js';
 
+export default function AppItem(props) {
+    async function handleEditPress() {
 
-export default function AppItem2(props) {
+        try {
+            const item = await Database.getItem(props.id);
+            props.navigation.navigate("AppForm", item);
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    function handleDeletePress() {
+        Alert.alert(
+            "Atenção",
+            "Você tem certeza que deseja excluir esse item?",
+            [
+                {
+                    text: "Não",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+
+                },
+                {
+                    text: "Sim", onPress: () => {
+                        Database.deleteItem(props.id)
+                        .then(response => 
+                            props.navigation.navigate("AppList",{id:props.id}));
+                    }
+                }
+            ],
+            {
+                cancelable: false
+            }
+        );
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.textITem}>{props.item}</Text>
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.deleteButton}>
+                <TouchableOpacity style={styles.deleteButton}
+                    onPress={handleDeletePress}>
                     <Text style={styles.buttonText}>X</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.editButton}>
-                    <Text style={styles.buttonText}>Editar</Text>
+                <TouchableOpacity
+                    style={styles.editButton}
+                    onPress={handleEditPress}>
+                    <Text style={styles.buttonText}>Editar!!</Text>
                 </TouchableOpacity>
 
             </View>
@@ -24,6 +58,8 @@ export default function AppItem2(props) {
         </View>
     )
 }
+
+
 
 const styles = StyleSheet.create({
     container: {

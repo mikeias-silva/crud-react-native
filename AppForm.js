@@ -1,13 +1,24 @@
 import { CommonActions } from '@react-navigation/routers';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, ScrollView, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import Database from './Database';
+import Database from './database.js';
+import { useState, useEffect } from 'react'
 
-export default function AppForm({ navigation }) {
 
+
+export default function AppForm({ route, navigation }) {
+    const id = route.params ? route.params.id : undefined;
     const [descricao, setDescricao] = useState('');
-    const [quantidade, setQuantidade] = useState('');
+    const [quantidade, setQuantidade] = useState('')
+
+
+
+    useEffect(() => {
+        if (!route.params) return;
+        setDescricao(route.params.descricao);
+        setQuantidade(route.params.quantidade.toString());
+    }, [route])
 
     function handleDescriptionChange(descricao) {
         setDescricao(descricao);
@@ -17,34 +28,29 @@ export default function AppForm({ navigation }) {
         setQuantidade(quantidade);
     }
 
+
     async function handleButtonPress() {
-        const listItem = { id: new Date().getTime(), descricao, quantidade };
-        let savedItems = [];
-        const response = await AsyncStorage.getItem('items');
-        console.log('items:', response)
-        if (response) {
-            savedItems = JSON.parse(response);
-        }
-        savedItems.push(listItem);
-        await AsyncStorage.setItem('items', JSON.stringify(savedItems));
-
-        console.log({ id: new Date().getTime(), descricao, quantidade });
-
-        navigation.navigate('AppList', { screen: 'Lista' });
+        const listItem = { descricao, quantidade: parseInt(quantidade) };
+        Database.saveItem(listItem, id)
+            .then(response => navigation.navigate("AppList", listItem));
     }
 
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input}
+
+            <TextInput
+                style={styles.input}
                 onChangeText={handleDescriptionChange}
                 placeholder="O que está faltando em casa?"
-                clearButtonMode="always" />
-            <TextInput style={styles.input}
+                clearButtonMode="always"
+                value={descricao} />
+            <TextInput
+                style={styles.input}
                 onChangeText={handleQuantityChange}
                 placeholder="Digite a quantidade"
                 keyboardType={'numeric'}
                 clearButtonMode="always"
-            />
+                value={quantidade.toString()} />
 
             <TouchableOpacity style={styles.button}
                 onPress={handleButtonPress}>
