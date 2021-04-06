@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Database from './database.js';
+import Icon from 'react-native-vector-icons/Feather';
+
+
 
 export default function AppItem(props) {
     async function handleEditPress() {
@@ -28,8 +31,8 @@ export default function AppItem(props) {
                 {
                     text: "Sim", onPress: () => {
                         Database.deleteItem(props.id)
-                        .then(response => 
-                            props.navigation.navigate("AppList",{id:props.id}));
+                            .then(response =>
+                                props.navigation.navigate("AppList", { id: props.id }));
                     }
                 }
             ],
@@ -38,20 +41,22 @@ export default function AppItem(props) {
             }
         );
     }
-
     return (
         <View style={styles.container}>
             <Text style={styles.textITem}>{props.item}</Text>
-            <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.deleteButton}
-                    onPress={handleDeletePress}>
-                    <Text style={styles.buttonText}>X</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.editButton}
-                    onPress={handleEditPress}>
-                    <Text style={styles.buttonText}>Editar!!</Text>
-                </TouchableOpacity>
+            <View style={styles.buttonsContainer} >
+
+                <View style={styles.deleteButton}>
+
+                    <Icon name="x" size={20} color="#fff" onPress={handleDeletePress} />
+
+                </View>
+
+                <View style={styles.editButton}>
+
+                    <Icon name="edit-2" size={20} color="#fff" onPress={handleDeletePress} />
+
+                </View>
 
             </View>
 
@@ -69,11 +74,15 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flexDirection: 'row-reverse',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
         paddingBottom: 10,
+        paddingTop: 10,
+        paddingLeft: 10,
         marginTop: 10,
+        
+        
     },
     editButton: {
         marginLeft: 10,
@@ -85,7 +94,8 @@ const styles = StyleSheet.create({
         elevation: 10,
         shadowOpacity: 10,
         shadowColor: '#ccc',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     deleteButton: {
         marginLeft: 10,

@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, ScrollView, StatusBar } from 'react-native';
 import AppItem from './AppItem';
 import { useState, useEffect } from 'react';
 import Database from './database.js';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
+
 
 
 
@@ -18,6 +21,7 @@ export default function AppList({ route, navigation }) {
         <View style={styles.container}>
             <StatusBar style="light" />
             <Text style={styles.title}>Lista de Compras</Text>
+              
             <ScrollView
                 style={styles.scrollContainer}
                 contentContainerStyle={styles.itemsContainer}>
@@ -43,35 +47,25 @@ const styles = StyleSheet.create({
         backgroundColor: '#D93600',
         alignItems: 'center',
         justifyContent: 'center'
-
-    },
-    texto: {
-        color: '#fff',
-
-        backgroundColor: 'red',
-        width: '100%',
-        fontSize: 20
-
-    },
-    title: {
+      },
+      title: {
         color: '#fff',
         fontSize: 20,
         fontWeight: 'bold',
         marginTop: 50,
         marginBottom: 20
-    },
-    scrollContainer: {
+      },
+      scrollContainer: {
         flex: 1,
-        width: '80%',
-
-    },
-    itemsContainer: {
-
+        width: '90%'
+      },
+      itemsContainer: {
+        flex: 1,
         marginTop: 10,
         padding: 20,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         alignItems: 'stretch',
-        backgroundColor: 'blue',
-    },
+        backgroundColor: '#fff'
+      },
 });
