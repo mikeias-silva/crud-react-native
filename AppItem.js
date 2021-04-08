@@ -54,7 +54,7 @@ export default function AppItem(props) {
 
                 <View style={styles.editButton}>
 
-                    <Icon name="edit-2" size={20} color="#fff" onPress={handleDeletePress} />
+                    <Icon name="edit-2" size={20} color="#fff" onPress={handleEditPress} />
 
                 </View>
 

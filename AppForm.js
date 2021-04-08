@@ -32,10 +32,10 @@ export default function AppForm({ route, navigation }) {
 
 
     async function handleButtonPress() {
-        const listItem = { descricao, quantidade: parseInt(quantidade) };
+        const listItem = { descricao, quantidade: parseInt(quantidade) + 'Kg' };
         Database.saveItem(listItem, id)
             .then(response => navigation.navigate("AppList", listItem));
-        
+    
     }
 
     return (
@@ -51,10 +51,12 @@ export default function AppForm({ route, navigation }) {
                 <TextInput
                     style={styles.input}
                     onChangeText={handleQuantityChange}
-                    placeholder="Digite a quantidade"
+                    placeholder="Digite a quantidade em Kg"
                     keyboardType={'numeric'}
                     clearButtonMode="always" 
-                    value={quantidade}/>
+                    value={quantidade}
+                    clearTextOnFocus={true}
+                    />
                 {/*//     value={quantidade.toString()} />
                 // <TouchableOpacity style={styles.button}>
                 //     <Text style={styles.buttonText}>Salvar</Text>

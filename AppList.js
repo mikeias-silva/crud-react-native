@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         width: '90%'
       },
       itemsContainer: {
-        flex: 1,
+       
         marginTop: 10,
         padding: 20,
         borderTopLeftRadius: 10,
